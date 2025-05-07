@@ -1,0 +1,43 @@
+---
+---
+
+<div class="counter-section">
+  <h2>Try our demo counter</h2>
+  <div id="counter-container"></div>
+</div>
+
+<script>
+  // Create and insert the counter button
+  document.addEventListener("DOMContentLoaded", () => {
+    let count = 0;
+    const button = document.createElement("button");
+    button.id = "counter-button";
+    button.textContent = "Clicked 0 times";
+    button.style.padding = "0.5rem 1rem";
+    button.style.fontSize = "1rem";
+    button.style.borderRadius = "0.25rem";
+    button.style.backgroundColor = "#00bcd4";
+    button.style.color = "white";
+    button.style.border = "none";
+    button.style.cursor = "pointer";
+    button.style.marginTop = "1rem";
+    
+    button.addEventListener("click", () => {
+      count++;
+      button.textContent = `Clicked ${count} times`;
+    });
+    
+    const container = document.getElementById("counter-container");
+    if (container) container.appendChild(button);
+  });
+</script>
+
+<style>
+  .counter-section {
+    text-align: center;
+    margin: 3rem 0;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+  }
+</style>

@@ -1,0 +1,527 @@
+---
+import ProductCard from "../components/ProductCard.astro";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultra Business - Accounting Automation Software</title>
+  <style>
+    :root {
+      --primary-color: #00bcd4;
+      --background-color: #ffffff;
+      --text-color: #333333;
+      --secondary-color: #f5f5f5;
+      --accent-color: #0097a7;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      z-index: 10;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo img {
+      height: auto;
+      max-height: 40px;
+    }
+
+    /* Mobile menu button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      transition: transform 0.3s ease;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-left: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+    
+    nav a:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: white;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s;
+    }
+    
+    nav a:hover::after {
+      transform-origin: bottom left;
+      transform: scaleX(1);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin: 2rem 0 3rem;
+    }
+
+    .hero-section h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight {
+      display: block;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* Modal popup styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #666;
+      transition: color 0.2s, transform 0.2s;
+    }
+    
+    .close-modal:hover {
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    .modal-header {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .modal-body {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .modal-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .modal-button.primary {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+    }
+    
+    .modal-button.primary:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-button.primary:active {
+      transform: translateY(0);
+      box-shadow: none;
+      background-color: #00838f;
+    }
+
+    .modal-button.secondary {
+      background-color: transparent;
+      color: #666;
+      border: 1px solid #ddd;
+    }
+    
+    .modal-button.secondary:hover {
+      background-color: #f5f5f5;
+      border-color: #aaa;
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .modal-button.secondary:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--primary-color);
+        z-index: 5;
+        transition: right 0.3s ease;
+        padding-top: 80px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        padding: 0 2rem;
+      }
+
+      nav li {
+        margin: 1.5rem 0;
+      }
+
+      nav a {
+        font-size: 1.25rem;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      .hero-section h1 {
+        font-size: 1.6rem;
+      }
+
+      .highlight {
+        font-size: 1.4rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animation for mobile menu button */
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="/img/logo.svg" alt="Ultra Business" width="150">
+    </a>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/solutions">Solutions</a></li>
+        <li><a href="#">Benefits</a></li>
+        <li><a href="#">Feedback</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="overlay"></div>
+  </header>
+
+  <main>
+    <div class="hero-section">
+      <h1>Accounting automation software for</h1>
+      <span class="highlight">restaurants, commerce, hotels and fitness centers</span>
+    </div>
+
+    <div class="products-grid">
+      <ProductCard 
+        title="RESTAURANT" 
+        description="Serve faster" 
+        price="59" 
+        image="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&h=300&fit=crop" 
+        color="#00bcd4"
+      />
+      
+      <ProductCard 
+        title="COMMERCE" 
+        description="Sell more" 
+        price="59" 
+        image="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?q=80&w=400&h=300&fit=crop" 
+        color="#00bcd4"
+      />
+      
+      <ProductCard 
+        title="HOTEL" 
+        description="Manage more efficiently" 
+        price="99" 
+        image="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&h=300&fit=crop" 
+        color="#00bcd4"
+      />
+      
+      <ProductCard 
+        title="FITNESS" 
+        description="Schedule rationally" 
+        price="59" 
+        image="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&w=400&h=300&fit=crop" 
+        color="#00bcd4"
+      />
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Ultra Business. All rights reserved.</p>
+  </footer>
+
+  <!-- Mobile menu script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('nav');
+      const overlay = document.querySelector('.overlay');
+      
+      if (!menuToggle || !nav || !overlay) {
+        console.warn('Mobile menu elements not found');
+        return;
+      }
+      
+      // Toggle menu when clicking the hamburger icon
+      menuToggle.addEventListener('click', function() {
+        menuToggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Close menu when clicking outside
+      overlay.addEventListener('click', function() {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+      
+      // Close menu when clicking a link
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          nav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    });
+  </script>
+
+  <!-- Modal popup for buttons -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2 id="modal-title" class="modal-header"></h2>
+      <div id="modal-body" class="modal-body"></div>
+      <div class="modal-actions">
+        <button class="modal-button secondary" onclick="closeModal()">Cancel</button>
+        <button class="modal-button primary" onclick="handleModalConfirm()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // Global functions for modals - defined with is:inline to make them globally available
+    function showModal(title, content) {
+      const modal = document.getElementById("modal");
+      const modalTitle = document.getElementById("modal-title");
+      const modalBody = document.getElementById("modal-body");
+      
+      modalTitle.textContent = title;
+      modalBody.textContent = content;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("modal");
+      modal.style.display = "none";
+    }
+
+    function handleModalConfirm() {
+      alert("Action confirmed!");
+      closeModal();
+    }
+
+    // Initialize button event listeners when DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all Try and Buy buttons
+      const tryButtons = document.querySelectorAll(".try-button");
+      const buyButtons = document.querySelectorAll(".buy-button");
+
+      // Add click event listeners to Try buttons
+      tryButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+          // Get the product title from the parent card
+          const card = button.closest(".product-card");
+          const title = card.querySelector("h2").textContent;
+          showModal(`Try ${title} for Free`, `Start your free trial of our ${title.toLowerCase()} accounting solution. No credit card required for 14 days.`);
+        });
+      });
+
+      // Add click event listeners to Buy buttons
+      buyButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+          // Get the product title and price from the parent card
+          const card = button.closest(".product-card");
+          const title = card.querySelector("h2").textContent;
+          const price = card.querySelector(".price").textContent;
+          showModal(`Purchase ${title}`, `Complete your purchase of ${title.toLowerCase()} accounting solution for ${price}. You'll get full access to all features.`);
+        });
+      });
+    });
+
+    // Close modal if user clicks outside the modal content
+    window.addEventListener("click", (event) => {
+      const modal = document.getElementById("modal");
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

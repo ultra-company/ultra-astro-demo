@@ -1,0 +1,592 @@
+---
+// Solutions Page
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Solutions - Ultra Business</title>
+  <style>
+    :root {
+      --primary-color: #00bcd4;
+      --background-color: #ffffff;
+      --text-color: #333333;
+      --secondary-color: #f5f5f5;
+      --accent-color: #0097a7;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      transition: transform 0.2s ease;
+      z-index: 10;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo img {
+      height: auto;
+      max-height: 40px;
+    }
+
+    /* Mobile menu button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      transition: transform 0.3s ease;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-left: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: white;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s;
+    }
+    
+    nav a:hover::after {
+      transform-origin: bottom left;
+      transform: scaleX(1);
+    }
+
+    nav a.active {
+      color: white;
+      font-weight: bold;
+    }
+
+    nav a.active::after {
+      transform: scaleX(1);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .solution-card {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .solution-image {
+      height: 200px;
+      background-color: #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .solution-card:hover .solution-image img {
+      transform: scale(1.05);
+    }
+
+    .solution-content {
+      padding: 1.5rem;
+    }
+
+    .solution-content h2 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .solution-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .read-more {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .read-more:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .read-more:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .features-section {
+      margin: 4rem 0;
+      padding: 2rem;
+      background-color: var(--secondary-color);
+      border-radius: 0.5rem;
+    }
+
+    .features-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 0.25rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      background-color: var(--primary-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .feature-content h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .feature-content p {
+      margin: 0;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* Back button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-button:hover {
+      color: var(--accent-color);
+    }
+
+    .back-button svg {
+      margin-right: 0.5rem;
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--primary-color);
+        z-index: 5;
+        transition: right 0.3s ease;
+        padding-top: 80px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        padding: 0 2rem;
+      }
+
+      nav li {
+        margin: 1.5rem 0;
+      }
+
+      nav a {
+        font-size: 1.25rem;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+    }
+    
+    /* Animation for mobile menu button */
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="/img/logo.svg" alt="Ultra Business" width="150">
+    </a>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/solutions" class="active">Solutions</a></li>
+        <li><a href="#">Benefits</a></li>
+        <li><a href="#">Feedback</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="overlay"></div>
+  </header>
+
+  <main>
+    <a href="/" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      Back to Home
+    </a>
+    
+    <div class="page-header">
+      <h1>Our Solutions</h1>
+      <p>Discover our comprehensive range of accounting automation solutions designed to streamline operations and boost productivity for various industries.</p>
+    </div>
+
+    <div class="solutions-grid">
+      <div class="solution-card">
+        <div class="solution-image">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&h=300&fit=crop" alt="Restaurant management solution">
+        </div>
+        <div class="solution-content">
+          <h2>Restaurant Management</h2>
+          <p>Streamline your restaurant operations with our comprehensive management solution. From inventory tracking to staff scheduling, we've got you covered.</p>
+          <a href="#" class="read-more">Learn More</a>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-image">
+          <img src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?q=80&w=400&h=300&fit=crop" alt="E-commerce solution">
+        </div>
+        <div class="solution-content">
+          <h2>E-Commerce Platform</h2>
+          <p>Take your online store to the next level with our integrated e-commerce solution. Manage inventory, process orders, and analyze sales data all in one place.</p>
+          <a href="#" class="read-more">Learn More</a>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-image">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&h=300&fit=crop" alt="Hotel management solution">
+        </div>
+        <div class="solution-content">
+          <h2>Hotel Management</h2>
+          <p>Manage your hotel efficiently with our comprehensive solution. From bookings and room management to staff scheduling and guest services.</p>
+          <a href="#" class="read-more">Learn More</a>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-image">
+          <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&w=400&h=300&fit=crop" alt="Fitness center management">
+        </div>
+        <div class="solution-content">
+          <h2>Fitness Center Management</h2>
+          <p>Run your fitness center smoothly with our dedicated management solution. From membership management to class scheduling and equipment tracking.</p>
+          <a href="#" class="read-more">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <h2>Key Features</h2>
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <div class="feature-content">
+            <h3>Advanced Analytics</h3>
+            <p>Gain valuable insights into your business with our powerful analytics tools.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <div class="feature-content">
+            <h3>Automated Workflows</h3>
+            <p>Save time with automated processes tailored to your business needs.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div class="feature-content">
+            <h3>Mobile Access</h3>
+            <p>Manage your business on the go with our mobile-friendly interfaces.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-content">
+            <h3>Secure Data Storage</h3>
+            <p>Keep your business data safe with our state-of-the-art security systems.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">🤝</div>
+          <div class="feature-content">
+            <h3>Integration Capabilities</h3>
+            <p>Seamlessly integrate with other tools and platforms you already use.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">💬</div>
+          <div class="feature-content">
+            <h3>24/7 Support</h3>
+            <p>Get help whenever you need it with our dedicated support team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Ultra Business. All rights reserved.</p>
+  </footer>
+
+  <!-- Mobile menu script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('nav');
+      const overlay = document.querySelector('.overlay');
+      
+      if (!menuToggle || !nav || !overlay) {
+        console.warn('Mobile menu elements not found');
+        return;
+      }
+      
+      // Toggle menu when clicking the hamburger icon
+      menuToggle.addEventListener('click', function() {
+        menuToggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Close menu when clicking outside
+      overlay.addEventListener('click', function() {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+      
+      // Close menu when clicking a link
+      const navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          nav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

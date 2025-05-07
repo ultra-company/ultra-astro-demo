@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 226 70" width="226" height="70">
+  <style>
+    .blue-text { fill: #00bcd4; } /* Brand blue for the U */
+    .dark-text { fill: #333; } /* Dark color for LTRA */
+    .tagline { font-style: italic; font-family: 'Brush Script MT', cursive; fill: #555; }
+    .blue-line { fill: #00bcd4; } /* Brand blue for the line */
+  </style>
+  <text x="0" y="40" class="blue-text" font-family="Arial" font-weight="bold" font-size="50">U</text>
+  <text x="42" y="40" class="dark-text" font-family="Arial" font-weight="bold" font-size="50">LTRA</text>
+  <rect x="0" y="55" width="40" height="5" class="blue-line" />
+  <text x="70" y="60" class="tagline" font-size="20">Be successful</text>
+</svg>

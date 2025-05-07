@@ -1,0 +1,21 @@
+---
+---
+
+<script>
+  let count = 0;
+  const button = document.getElementById('counter-button');
+  
+  button?.addEventListener('click', () => {
+    count++;
+    if (button) {
+      button.textContent = `Clicked ${count} times`;
+    }
+  });
+</script>
+
+<button 
+  id="counter-button"
+  style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: var(--sl-color-accent); color: var(--sl-color-text-invert); border: none; cursor: pointer;"
+>
+  Clicked 0 times
+</button>

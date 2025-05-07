@@ -1,0 +1,18 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Cache assets with a hash in the filename for 1 year
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache static assets for 24 hours
+/assets/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=86400
+
+# Cache images for 7 days
+/img/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

@@ -1,0 +1,59 @@
+/* Custom styling to make the theme more like the example */
+
+:root {
+  --sl-content-width: 1200px;
+  --product-primary-color: #00bcd4;
+}
+
+/* Make the page full width and remove padding */
+.sl-container {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Style the main content */
+main {
+  padding: 0 1rem;
+}
+
+/* Header styling */
+.site-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.site-title span {
+  display: flex;
+  align-items: center;
+}
+
+.site-title span::before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+  background-color: var(--product-primary-color);
+  border-radius: 0.25rem;
+}
+
+/* Right sidebar */
+.right-sidebar-panel {
+  display: none;
+}
+
+/* Page header */
+.content-panel {
+  padding-top: 0;
+}
+
+.page-header {
+  display: none;
+}
+
+/* Adjust content width on mobile */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
